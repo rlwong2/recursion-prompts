@@ -7,20 +7,77 @@
 // Example: 5! = 5 x 4 x 3 x 2 x 1 = 120
 // factorial(5); // 120
 var factorial = function(n) {
+
+  if (n === 0) {
+    return 1;
+  } else if (n < 0) {
+    return null;
+  } else {
+    return n * factorial(n - 1);
+  }
 };
 
 // 2. Compute the sum of an array of integers.
 // sum([1,2,3,4,5,6]); // 21
 var sum = function(array) {
+
+  if (array.length === 0) {
+    return 0;
+  } else if (array.length === 1) {
+    return array[0];
+  } else {
+    var arr = array.slice(0, array.length - 1);
+    arr[arr.length - 1] = arr[arr.length - 1] + array[array.length - 1];
+    return sum(arr);
+  }
+
 };
 
 // 3. Sum all numbers in an array containing nested arrays.
 // arraySum([1,[2,3],[[4]],5]); // 15
 var arraySum = function(array) {
+  console.log(array);
+
+  if (array.length === 0) {
+    return 0;
+  } else if (array.length === 1 && Array.isArray(array[0])) {
+    return arraySum(array[0]);
+  } else if (array.length === 1 && !Array.isArray(array[0])) {
+    return array[0];
+  } else if ( Array.isArray(array[array.length - 1]) ) {
+    var arr = array.slice(0, array.length - 1);
+    for (var i = 0; i < array[array.length - 1].length; i++) {
+      arr.push(array[array.length - 1][i]);
+    }
+    return arraySum(arr);
+
+  } else if ( Array.isArray(array[array.length - 2])) {
+    var arr = array.slice();
+    arr.splice(array.length - 2, 1);
+    for (var i = 0; i < array[array.length - 2].length; i++) {
+      arr.push(array[array.length - 2][i]);
+    }
+    return arraySum(arr);
+
+  } else {
+    var arr = array.slice(0, array.length - 1);
+    arr[arr.length - 1] = arr[arr.length - 1] + array[array.length - 1];
+    return arraySum(arr);
+  }
+
 };
 
 // 4. Check if a number is even.
 var isEven = function(n) {
+  if (n === 0) {
+    return true;
+  } else if (n === 1) {
+    return false;
+  } else if (n < 0) {
+    return isEven(n + 2);
+  } else {
+    return isEven(n - 2);
+  }
 };
 
 // 5. Sum all integers below a given integer.
